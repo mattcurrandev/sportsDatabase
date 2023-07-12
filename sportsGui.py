@@ -1,5 +1,51 @@
 import tkinter
 from tkinter import ttk
+from tkinter import messagebox
+
+#function for enter data button
+def enter_data():
+    #terms and conditions accept
+    accepted = accept_var.get()
+
+    if accepted == "Accepted":
+
+        #player info
+        firstName = firstNameEntry.get()
+        lastName = lastNameEntry.get()
+        position = positionCombobox.get()
+        if firstName and lastName and position:
+            age = ageSpinbox.get()
+            nationality = nationalityEntry.get()
+        
+            #player team and stats
+            team = teamNameEntry.get()
+            season = yearPlayedEntry.get()
+            gp = gamesPlayedSpinbox.get()
+            goals = goalsScoredEntry.get()
+            assists = assistsScoredEntry.get()
+            pims = pimsRecordedEntry.get()
+            wins = winsRecordedEntry.get()
+            losses = lossesRecordedEntry.get()
+            savePercentage = savePercentageEntry.get()
+
+            #salary Info
+            baseSalary = baseSalaryEntry.get()
+            totalSalary = totalSalaryEntry.get()
+            aav = aavEntry.get()
+
+            print("First Name: ", firstName, "Last Name: ", lastName)
+            print("Position: ", position, "Age: ", age, "Nationality: ", nationality)
+            print("Team: ", team, "Season: ", season, "Games Played: ", gp)
+            print("Goals Scored: ", goals, "Assists scored: ", assists, "Penalties in Minutes: ", pims)
+            print("Wins Recorded: ", wins, "Losses Recorded: ", losses, "Save Percentage: ", savePercentage)
+            print('Base Salary: ', baseSalary, "Total Salary: ", totalSalary, "AAV: ", aav)
+            #added a seperator for terminal print out
+            print("-------------------------------------------------------------------------")
+        else:
+            tkinter.messagebox.showwarning(title = "Error", message = "First name, Last Name and Position are required.")
+    else:
+        tkinter.messagebox.showwarning(title = "Error", message = "Terms and conditions not accepted.")
+
 
 #create window
 window = tkinter.Tk()
@@ -94,7 +140,7 @@ lossesRecordedEntry = tkinter.Entry(teamFrame)
 lossesRecordedLabel.grid(row=4, column=1)
 lossesRecordedEntry.grid(row=5, column=1)
 
-savePercentageLabel = tkinter.Label(teamFrame, text='Wins Recorded')
+savePercentageLabel = tkinter.Label(teamFrame, text='Save Percentage')
 savePercentageEntry = tkinter.Entry(teamFrame)
 
 savePercentageLabel.grid(row=4, column=2)
@@ -130,11 +176,13 @@ aavEntry.grid(row=1, column=2)
 termsFrame = tkinter.LabelFrame(frame, text='Terms and Conditions')
 termsFrame.grid(row=3, column=0, sticky='news', padx=20, pady=10)
 
-termsCheck = tkinter.Checkbutton(termsFrame, text='I accept the terms and conditions.')
+accept_var = tkinter.StringVar(value="Not Accepted")
+termsCheck = tkinter.Checkbutton(termsFrame, text='I accept the terms and conditions.',
+                                 variable=accept_var, onvalue="Accepted", offvalue="Not Accepted")
 termsCheck.grid(row=0, column=0)
 
 #enter data button
-button = tkinter.Button(frame, text='Enter Data')
+button = tkinter.Button(frame, text='Enter Data', command= enter_data)
 button.grid(row=4, column=0, sticky='news', padx=20, pady=10)
 
 #main loop to run the window when the window is closed the loop stops
